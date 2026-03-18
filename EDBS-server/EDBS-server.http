@@ -1,0 +1,6 @@
+@EDBS_server_HostAddress = http://localhost:5133
+
+GET {{EDBS_server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
