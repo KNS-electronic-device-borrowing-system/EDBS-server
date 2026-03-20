@@ -9,7 +9,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddScoped<EDBS_server.Repositories.IUserRepository, EDBS_server.Repositories.UserRepository>();
 builder.Services.AddScoped<EDBS_server.Services.IAuthService, EDBS_server.Services.AuthService>();
-
+builder.Services.Configure<EDBS_server.Settings.EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddScoped<EDBS_server.Services.IEmailService, EDBS_server.Services.EmailService>();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -18,7 +19,7 @@ var app = builder.Build();
 
 try
 {
-    await DataSeeder.SeedDataAsync(app.Services);
+    await DataSeeder    .SeedDataAsync(app.Services);
 }
 catch (Exception ex)
 {
