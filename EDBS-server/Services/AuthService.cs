@@ -114,5 +114,54 @@ namespace EDBS_server.Services
                 VerificationToken = user.VerificationToken
             };
         }
+
+        public async Task<AuthResultDto> LoginAsync(LoginRequestDto request)
+        {
+            if (string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
+            {
+                return new AuthResultDto { IsSuccess = false, ErrorMessage = "Tên đăng nhập và mật khẩu không được để trống." };
+            }
+
+            var user = await _userRepository.GetUserByUsernameAsync(request.Username);
+            if (user == null)
+            {
+                return new AuthResultDto { IsSuccess = false, ErrorMessage = "Tên đăng nhập hoặc mật khẩu không chính xác." };
+            }
+
+            if (user.IsVerified != true)
+            {
+                return new AuthResultDto { IsSuccess = false, ErrorMessage = "Tài khoản chưa được xác thực. Vui lòng kiểm tra email để xác thực tài khoản." };
+            }
+
+            if (user.IsLocked == true)
+            {
+                return new AuthResultDto { IsSuccess = false, ErrorMessage = "Tài khoản của bạn đã bị khóa." };
+            }
+
+            if (user.IsDeleted == true)
+            {
+                return new AuthResultDto { IsSuccess = false, ErrorMessage = "Tài khoản này không tồn tại." };
+            }
+
+            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+            {
+                return new AuthResultDto { IsSuccess = false, ErrorMessage = "Tên đăng nhập hoặc mật khẩu không chính xác." };
+            }
+
+            var loginResponse = new LoginResponseDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email ?? "",
+                FullName = user.FullName ?? "",
+                RoleId = user.RoleId
+            };
+
+            return new AuthResultDto
+            {
+                IsSuccess = true,
+                User = loginResponse
+            };
+        }
     }
 }

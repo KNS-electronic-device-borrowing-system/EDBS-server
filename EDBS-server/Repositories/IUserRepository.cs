@@ -8,6 +8,7 @@ namespace EDBS_server.Repositories
         Task<bool> UsernameExistsAsync(string username);
         Task<Role?> GetRoleByNameAsync(string roleName);
         Task<User?> GetUserByVerificationTokenAsync(string token);
+        Task<User?> GetUserByUsernameAsync(string username);
         Task AddUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task<User?> GetUserByEmailAsync(string email);

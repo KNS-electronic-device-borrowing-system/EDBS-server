@@ -86,5 +86,22 @@ namespace MyApiProject.Controllers
                 message = "Link xác thực mới đã được gửi đến email của bạn (có hiệu lực trong 10 phút)."
             });
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
+        {
+            var result = await _authService.LoginAsync(request);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(new { message = result.ErrorMessage });
+            }
+
+            return Ok(new
+            {
+                message = "Đăng nhập thành công.",
+                user = result.User
+            });
+        }
     }
 }
