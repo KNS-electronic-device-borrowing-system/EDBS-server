@@ -1,37 +1,87 @@
-namespace EDBS_server.Models
-{
-    public class User : BaseEntity
-    {
-        public string Username { get; set; } = null!;
-        public string Password { get; set; } = null!;
-        public string? FullName { get; set; }
-        public string? Email { get; set; }
-        public string? PhoneNumber { get; set; }
-        public string? AvatarUrl { get; set; }
-        public string? IdCardImageUrl { get; set; }
-        public int? RoleId { get; set; }
-        public bool IsLocked { get; set; } = false;
-        public bool IsDeleted { get; set; } = false;
-        public int? CreatedBy { get; set; }
-        public int? UpdatedBy { get; set; }
+﻿using System;
+using System.Collections.Generic;
 
-        // Navigation properties
-        public Role? Role { get; set; }
-        public User? CreatedByUser { get; set; }
-        public User? UpdatedByUser { get; set; }
-        public ICollection<User> CreatedUsers { get; set; } = new List<User>();
-        public ICollection<User> UpdatedUsers { get; set; } = new List<User>();
-        public ICollection<Category> CategoriesCreated { get; set; } = new List<Category>();
-        public ICollection<Category> CategoriesUpdated { get; set; } = new List<Category>();
-        public ICollection<Model> ModelsCreated { get; set; } = new List<Model>();
-        public ICollection<Model> ModelsUpdated { get; set; } = new List<Model>();
-        public ICollection<Product> ProductsCreated { get; set; } = new List<Product>();
-        public ICollection<Product> ProductsUpdated { get; set; } = new List<Product>();
-        public ICollection<Asset> AssetsCreated { get; set; } = new List<Asset>();
-        public ICollection<Asset> AssetsUpdated { get; set; } = new List<Asset>();
-        public ICollection<BorrowingSlip> BorrowingSlips { get; set; } = new List<BorrowingSlip>();
-        public ICollection<BorrowingSlip> ProcessedBorrowingSlips { get; set; } = new List<BorrowingSlip>();
-        public ICollection<Penalty> Penalties { get; set; } = new List<Penalty>();
-        public ICollection<Blacklist> Blacklists { get; set; } = new List<Blacklist>();
-    }
+namespace EDBS_server.Models;
+
+public partial class User
+{
+    public int Id { get; set; }
+
+    public string Username { get; set; } = null!;
+
+    public string Password { get; set; } = null!;
+
+    public string? FullName { get; set; }
+
+    public string? Email { get; set; }
+
+    public string? PhoneNumber { get; set; }
+
+    public string? AvatarUrl { get; set; }
+
+    public string? IdCardImageUrl { get; set; }
+
+    public int? RoleId { get; set; }
+
+    public bool? IsLocked { get; set; }
+
+    public bool? IsDeleted { get; set; }
+
+    public DateTime? CreatedAt { get; set; }
+
+    public DateTime? UpdatedAt { get; set; }
+
+    public int? CreatedBy { get; set; }
+
+    public int? UpdatedBy { get; set; }
+
+    public bool? IsVerified { get; set; } = false;
+    public string? VerificationToken { get; set; }
+    public DateTime? VerificationTokenExpiresAt { get; set; }
+
+    public virtual ICollection<Asset> AssetCreatedByNavigations { get; set; } = new List<Asset>();
+
+    public virtual ICollection<Asset> AssetUpdatedByNavigations { get; set; } = new List<Asset>();
+
+    public virtual ICollection<Blacklist> BlacklistCreatedByNavigations { get; set; } = new List<Blacklist>();
+
+    public virtual ICollection<Blacklist> BlacklistUpdatedByNavigations { get; set; } = new List<Blacklist>();
+
+    public virtual ICollection<Blacklist> BlacklistUsers { get; set; } = new List<Blacklist>();
+
+    public virtual ICollection<BorrowingSlip> BorrowingSlipCreatedByNavigations { get; set; } = new List<BorrowingSlip>();
+
+    public virtual ICollection<BorrowingSlip> BorrowingSlipProcessedByNavigations { get; set; } = new List<BorrowingSlip>();
+
+    public virtual ICollection<BorrowingSlip> BorrowingSlipUpdatedByNavigations { get; set; } = new List<BorrowingSlip>();
+
+    public virtual ICollection<BorrowingSlip> BorrowingSlipUsers { get; set; } = new List<BorrowingSlip>();
+
+    public virtual ICollection<Category> CategoryCreatedByNavigations { get; set; } = new List<Category>();
+
+    public virtual ICollection<Category> CategoryUpdatedByNavigations { get; set; } = new List<Category>();
+
+    public virtual User? CreatedByNavigation { get; set; }
+
+    public virtual ICollection<User> InverseCreatedByNavigation { get; set; } = new List<User>();
+
+    public virtual ICollection<User> InverseUpdatedByNavigation { get; set; } = new List<User>();
+
+    public virtual ICollection<Model> ModelCreatedByNavigations { get; set; } = new List<Model>();
+
+    public virtual ICollection<Model> ModelUpdatedByNavigations { get; set; } = new List<Model>();
+
+    public virtual ICollection<Penalty> PenaltyCreatedByNavigations { get; set; } = new List<Penalty>();
+
+    public virtual ICollection<Penalty> PenaltyUpdatedByNavigations { get; set; } = new List<Penalty>();
+
+    public virtual ICollection<Penalty> PenaltyUsers { get; set; } = new List<Penalty>();
+
+    public virtual ICollection<Product> ProductCreatedByNavigations { get; set; } = new List<Product>();
+
+    public virtual ICollection<Product> ProductUpdatedByNavigations { get; set; } = new List<Product>();
+
+    public virtual Role? Role { get; set; }
+
+    public virtual User? UpdatedByNavigation { get; set; }
 }
