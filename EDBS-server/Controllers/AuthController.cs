@@ -68,5 +68,22 @@ namespace MyApiProject.Controllers
                 debug_verify_link = verificationLink
             });
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
+        {
+            var result = await _authService.LoginAsync(request);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(new { message = result.ErrorMessage });
+            }
+
+            return Ok(new
+            {
+                message = "Đăng nhập thành công.",
+                user = result.User
+            });
+        }
     }
 }
