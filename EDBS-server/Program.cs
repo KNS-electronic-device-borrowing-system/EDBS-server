@@ -19,7 +19,7 @@ var app = builder.Build();
 
 try
 {
-    await DataSeeder    .SeedDataAsync(app.Services);
+    await DataSeeder.SeedDataAsync(app.Services);
 }
 catch (Exception ex)
 {
