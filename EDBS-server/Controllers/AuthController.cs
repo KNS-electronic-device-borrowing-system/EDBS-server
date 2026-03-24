@@ -3,7 +3,7 @@ using EDBS_server.DTOs.Requests;
 using EDBS_server.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MyApiProject.Controllers
+namespace EDBS_server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -31,7 +31,6 @@ namespace MyApiProject.Controllers
             var verificationLink = Url.Action(nameof(VerifyEmail), "Auth",
                 new { token = result.VerificationToken }, Request.Scheme);
 
-            // 1. TẠO NỘI DUNG VÀ GỬI EMAIL TRƯỚC
             string emailBody = $@"
                 <h3>Chào mừng bạn đến với Hệ thống mượn trả thiết bị!</h3>
                 <p>Vui lòng click vào đường link dưới đây để xác thực tài khoản (Link có hiệu lực trong 10 phút):</p>
@@ -40,7 +39,6 @@ namespace MyApiProject.Controllers
 
             await _emailService.SendEmailAsync(request.Email, "Xác thực tài khoản của bạn", emailBody);
 
-            // 2. SAU ĐÓ MỚI TRẢ VỀ KẾT QUẢ CHO CLIENT
             return Ok(new
             {
                 message = "Đăng ký thành công. Vui lòng kiểm tra email để xác thực tài khoản."
