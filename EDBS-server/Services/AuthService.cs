@@ -138,7 +138,7 @@ namespace EDBS_server.Services
                 EmployeeCode = user.EmployeeCode,
                 Email = user.Email,
                 FullName = user.FullName,
-                RoleId = user.RoleId
+                roleName = user.Role.Name
             };
 
             return new AuthResultDto

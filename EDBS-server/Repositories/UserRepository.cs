@@ -23,7 +23,7 @@ namespace EDBS_server.Repositories
             => await _context.Users.FirstOrDefaultAsync(u => u.VerificationToken == token);
 
         public async Task<User?> GetUserByEmailAsync(string email)
-            => await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            => await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == email);
 
         public async Task AddUserAsync(User user)
         {

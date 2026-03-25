@@ -6,6 +6,6 @@ namespace EDBS_server.DTOs.Responses
         public string EmployeeCode { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string FullName { get; set; } = null!;
-        public int? RoleId { get; set; }
+        public string? roleName { get; set; }
     }
 }
