@@ -1,35 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace EDBS_server.Models;
-
-public partial class Asset
+namespace EDBS_server.Models
 {
-    public int Id { get; set; }
+    public class Asset : BaseEntity
+    {
+        [Required, MaxLength(50)]
+        public string AssetCode { get; set; } = null!;
 
-    public int? ProductId { get; set; }
+        [MaxLength(100)]
+        public string? SerialNumber { get; set; }
 
-    public string AssetTag { get; set; } = null!;
+        [Required, MaxLength(150)]
+        public string Name { get; set; } = null!;
 
-    public string? ManufacturerSerial { get; set; }
+        [Required, MaxLength(50)]
+        public string Status { get; set; } = "Available"; // Available, Reserved, In-use, Maintenance, Broken
 
-    public string? Status { get; set; }
+        [MaxLength(255)]
+        public string? QrCode { get; set; }
+        public string? Description { get; set; }
 
-    public bool? IsDeleted { get; set; }
+        public int? CategoryId { get; set; }
+        public virtual Category? Category { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
-
-    public DateTime? UpdatedAt { get; set; }
-
-    public int? CreatedBy { get; set; }
-
-    public int? UpdatedBy { get; set; }
-
-    public virtual ICollection<BorrowingSlip> BorrowingSlips { get; set; } = new List<BorrowingSlip>();
-
-    public virtual User? CreatedByNavigation { get; set; }
-
-    public virtual Product? Product { get; set; }
-
-    public virtual User? UpdatedByNavigation { get; set; }
+        public virtual ICollection<TransactionDetail> TransactionDetails { get; set; } = new List<TransactionDetail>();
+    }
 }

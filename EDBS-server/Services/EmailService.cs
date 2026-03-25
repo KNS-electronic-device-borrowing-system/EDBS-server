@@ -1,5 +1,4 @@
-﻿using EDBS_server.Services;
-using EDBS_server.Settings;
+﻿using EDBS_server.Settings;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;

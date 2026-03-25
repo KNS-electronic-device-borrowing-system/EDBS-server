@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace EDBS_server.Models;
-
-public partial class Role
+namespace EDBS_server.Models
 {
-    public int Id { get; set; }
+    public class Role : BaseEntity
+    {
+        [Required, MaxLength(50)]
+        public string Name { get; set; } = null!;
+        public string? Description { get; set; }
 
-    public string RoleName { get; set; } = null!;
-
-    public DateTime? CreatedAt { get; set; }
-
-    public DateTime? UpdatedAt { get; set; }
-
-    public int? CreatedBy { get; set; }
-
-    public int? UpdatedBy { get; set; }
-
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
+        public virtual ICollection<User> Users { get; set; } = new List<User>();
+    }
 }

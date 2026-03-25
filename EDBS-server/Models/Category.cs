@@ -1,29 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace EDBS_server.Models;
-
-public partial class Category
+namespace EDBS_server.Models
 {
-    public int Id { get; set; }
+    public class Category : BaseEntity
+    {
+        [Required, MaxLength(100)]
+        public string Name { get; set; } = null!;
+        public string? Description { get; set; }
 
-    public string CategoryName { get; set; } = null!;
-
-    public string? Description { get; set; }
-
-    public bool? IsDeleted { get; set; }
-
-    public DateTime? CreatedAt { get; set; }
-
-    public DateTime? UpdatedAt { get; set; }
-
-    public int? CreatedBy { get; set; }
-
-    public int? UpdatedBy { get; set; }
-
-    public virtual User? CreatedByNavigation { get; set; }
-
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
-
-    public virtual User? UpdatedByNavigation { get; set; }
+        public virtual ICollection<Asset> Assets { get; set; } = new List<Asset>();
+    }
 }

@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AssetManagementDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+           .UseSnakeCaseNamingConvention());
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<EDBS_server.Repositories.IUserRepository, EDBS_server.Repositories.UserRepository>();
@@ -17,14 +18,20 @@ builder.Services.AddOpenApi();
 var app = builder.Build();
 
 
-try
+using (var scope = app.Services.CreateScope())
 {
-    await DataSeeder.SeedDataAsync(app.Services);
-}
-catch (Exception ex)
-{
-    var logger = app.Services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "Có lỗi xảy ra trong quá trình Seed dữ liệu.");
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AssetManagementDbContext>();
+
+        await DataSeeder.SeedDataAsync(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Có lỗi xảy ra trong quá trình Seed dữ liệu.");
+    }
 }
 
 if (app.Environment.IsDevelopment())
