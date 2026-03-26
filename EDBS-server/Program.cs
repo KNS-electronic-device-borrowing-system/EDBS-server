@@ -1,7 +1,11 @@
 using EDBS_server.Data;
 using Microsoft.EntityFrameworkCore;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Load .env file
+DotNetEnv.Env.Load();
 
 // --- DbContext ---
 builder.Services.AddDbContext<AssetManagementDbContext>(options =>
