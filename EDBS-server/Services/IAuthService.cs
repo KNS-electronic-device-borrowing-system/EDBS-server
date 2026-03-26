@@ -9,5 +9,6 @@ namespace EDBS_server.Services
         Task<AuthResultDto> VerifyEmailAsync(string token);
         Task<AuthResultDto> ResendVerificationEmailAsync(string email);
         Task<AuthResultDto> LoginAsync(LoginRequestDto request);
+        Task<AuthResultDto> RefreshTokenAsync(TokenRequestDto request);
     }
 }

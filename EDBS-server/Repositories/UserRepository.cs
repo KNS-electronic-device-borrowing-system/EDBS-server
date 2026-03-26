@@ -36,5 +36,10 @@ namespace EDBS_server.Repositories
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
         }
+
+        public Task<User> GetUserByIdAsync(int userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

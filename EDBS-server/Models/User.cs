@@ -33,6 +33,9 @@ namespace EDBS_server.Models
         [MaxLength(500)]
         public string? IdCardImageUrl { get; set; }
 
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiryTime { get; set; }
+
         public bool? IsVerified { get; set; } = false;
 
         [MaxLength(255)]

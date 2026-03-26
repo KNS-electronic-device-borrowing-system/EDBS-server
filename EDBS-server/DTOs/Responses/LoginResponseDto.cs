@@ -1,33 +1,20 @@
 namespace EDBS_server.DTOs.Responses
 {
-    /// <summary>
-    /// User information returned after successful login
-    /// </summary>
+    // Class này đại diện cho toàn bộ cục "data" trả về
     public class LoginResponseDto
     {
-        /// <summary>
-        /// User unique identifier
-        /// </summary>
+        public string AccessToken { get; set; } = null!;
+        public string RefreshToken { get; set; } = null!;
+        public UserDetailDto User { get; set; } = null!;
+    }
+
+    // Class này đại diện cho cục "user" nằm bên trong
+    public class UserDetailDto
+    {
         public int Id { get; set; }
-
-        /// <summary>
-        /// Employee identification code
-        /// </summary>
         public string EmployeeCode { get; set; } = null!;
-
-        /// <summary>
-        /// User email address
-        /// </summary>
         public string Email { get; set; } = null!;
-
-        /// <summary>
-        /// User's full name
-        /// </summary>
         public string FullName { get; set; } = null!;
-
-        /// <summary>
-        /// User's role name (e.g., "Borrower", "Administrator")
-        /// </summary>
-        public string? RoleName { get; set; }
+        public string RoleName { get; set; } = null!;
     }
 }

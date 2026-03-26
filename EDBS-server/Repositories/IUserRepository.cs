@@ -13,5 +13,6 @@ namespace EDBS_server.Repositories
 
         Task AddUserAsync(User user);
         Task UpdateUserAsync(User user);
+        Task<User> GetUserByIdAsync(int userId);
     }
 }
