@@ -17,6 +17,9 @@ builder.Services.AddScoped<EDBS_server.Services.IEmailService, EDBS_server.Servi
 
 builder.Services.AddOpenApi();
 
+// --- Swagger/Swashbuckle ---
+builder.Services.AddSwaggerGen();
+
 // --- CORS ---
 builder.Services.AddCors(options =>
 {
@@ -50,6 +53,13 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "EDBS API v1");
+        c.RoutePrefix = "swagger";
+        c.DefaultModelsExpandDepth(2);
+    });
 }
 
 // app.UseHttpsRedirection();

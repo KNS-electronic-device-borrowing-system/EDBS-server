@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EDBS_server.Controllers
 {
+    /// <summary>
+    /// Authentication endpoints for user registration, login, and email verification
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -18,6 +21,17 @@ namespace EDBS_server.Controllers
             _emailService = emailService;
         }
 
+        /// <summary>
+        /// Register a new user account
+        /// </summary>
+        /// <remarks>
+        /// Creates a new user account with the provided email, password, and full name.
+        /// A verification email will be sent to the provided email address.
+        /// </remarks>
+        /// <param name="request">User registration information</param>
+        /// <returns>Registration status and verification token</returns>
+        /// <response code="200">User registered successfully. Verification email has been sent.</response>
+        /// <response code="400">Registration failed due to validation errors or duplicate email</response>
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
         {
@@ -45,6 +59,16 @@ namespace EDBS_server.Controllers
             });
         }
 
+        /// <summary>
+        /// Verify user email address
+        /// </summary>
+        /// <remarks>
+        /// Validates and verifies a user's email address using the verification token sent to their email.
+        /// </remarks>
+        /// <param name="token">Email verification token</param>
+        /// <returns>Verification status</returns>
+        /// <response code="200">Email verified successfully</response>
+        /// <response code="400">Verification failed - invalid or expired token</response>
         [HttpGet("verify-email")]
         public async Task<IActionResult> VerifyEmail([FromQuery] string token)
         {
@@ -58,6 +82,16 @@ namespace EDBS_server.Controllers
             return Ok(new { message = "Xác thực email thành công!" });
         }
 
+        /// <summary>
+        /// Resend email verification link
+        /// </summary>
+        /// <remarks>
+        /// Sends a new verification email link to the user if they didn't receive the initial one or if it expired.
+        /// </remarks>
+        /// <param name="request">Email address to resend verification to</param>
+        /// <returns>Status of resend operation</returns>
+        /// <response code="200">Verification email resent successfully</response>
+        /// <response code="400">Resend failed - user not found or already verified</response>
         [HttpPost("resend-verification")]
         public async Task<IActionResult> ResendVerification([FromBody] ResendVerificationRequestDto request)
         {
@@ -85,6 +119,16 @@ namespace EDBS_server.Controllers
             });
         }
 
+        /// <summary>
+        /// User login
+        /// </summary>
+        /// <remarks>
+        /// Authenticates a user with their email and password. User must have verified their email before login.
+        /// </remarks>
+        /// <param name="request">User credentials (email and password)</param>
+        /// <returns>Authentication result with user information</returns>
+        /// <response code="200">Login successful. Returns user information and role</response>
+        /// <response code="400">Login failed - invalid credentials or unverified account</response>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
         {
