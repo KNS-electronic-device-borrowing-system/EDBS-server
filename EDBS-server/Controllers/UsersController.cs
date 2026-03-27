@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using EDBS_server.DTOs.Requests;
 using EDBS_server.DTOs.Responses;
 using EDBS_server.Repositories;
 using EDBS_server.Services;
@@ -43,6 +44,23 @@ namespace EDBS_server.Controllers
                 profile,
                 "Lấy thông tin cá nhân thành công."
             ));
+        }
+        // 1. API CẬP NHẬT THÔNG TIN VĂN BẢN (JSON)
+        [HttpPut("me")]
+        public async Task<IActionResult> UpdateMyProfile([FromForm] UpdateProfileRequestDto request)
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            int userId = int.Parse(userIdString!);
+
+            try
+            {
+                var updatedProfile = await _userService.UpdateProfileAsync(userId, request);
+                return Ok(ApiResponse<UserProfileDto>.Succeed(updatedProfile, "Cập nhật hồ sơ thành công."));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<object>.Fail(ex.Message));
+            }
         }
     }
 }

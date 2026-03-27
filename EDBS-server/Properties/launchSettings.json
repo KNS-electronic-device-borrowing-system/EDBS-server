@@ -14,9 +14,9 @@
         "EmailSettings__Password": "udaxnvutlxkqulnl",
 
         "ConnectionStrings__DefaultConnection": "Host=localhost;Port=5432;Database=edbs;Username=postgres;Password=12345",
-        "JwtSettings__SecretKey": "OJgCCnBmVRMWsNM0faTxIkur4rwYrdgX9fcipfPtpYp,
+        "JwtSettings__SecretKey": "OJgCCnBmVRMWsNM0faTxIkur4rwYrdgX9fcipfPtpYp",
+        "CloudinarySettings__ApiSecret": "hvOxJ7OHKTsrozO8KHlfA8pRyvQ"
 
-        "
       }
     }
     },
@@ -32,9 +32,8 @@
       "EmailSettings__Password": "udaxnvutlxkqulnl",
 
       "ConnectionStrings__DefaultConnection": "Host=localhost;Port=5432;Database=edbs;Username=postgres;Password=12345",
-      "JwtSettings__SecretKey": "OJgCCnBmVRMWsNM0faTxIkur4rwYrdgX9fcipfPtpYp,
-
-      "
+      "JwtSettings__SecretKey": "OJgCCnBmVRMWsNM0faTxIkur4rwYrdgX9fcipfPtpYp",
+      "CloudinarySettings__ApiSecret": "hvOxJ7OHKTsrozO8KHlfA8pRyvQ"
     }
   }
   }

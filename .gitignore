@@ -177,3 +177,6 @@ node_modules/
 
 # Test coverage
 coverage/
+
+# Ignore local launch settings and secrets
+**/Properties/launchSettings.json
