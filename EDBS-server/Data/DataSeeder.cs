@@ -49,7 +49,6 @@ namespace EDBS_server.Data
                         Email = "admin@company.com",
                         Password = "hashed_password_123",
                         EmployeeCode = "EMP-ADMIN",
-                        Department = "Phòng IT",
                         Phone = "0901234567",
                         RoleId = adminRole!.Id // Gán Role Admin
                     },
@@ -59,7 +58,6 @@ namespace EDBS_server.Data
                         Email = "borrower@company.com",
                         Password = "hashed_password_123",
                         EmployeeCode = "EMP-001",
-                        Department = "Phòng Kỹ Thuật",
                         Phone = "0912345678",
                         RoleId = borrowerRole!.Id // Gán Role Borrower
                     },
@@ -69,7 +67,6 @@ namespace EDBS_server.Data
                         Email = "lethib@company.com",
                         Password = "hashed_password_123",
                         EmployeeCode = "EMP-002",
-                        Department = "Phòng Kế Toán",
                         Phone = "0923456789",
                         RoleId = borrowerRole.Id // Gán Role Borrower
                     }

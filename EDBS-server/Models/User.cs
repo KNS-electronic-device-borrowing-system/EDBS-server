@@ -18,9 +18,6 @@ namespace EDBS_server.Models
         [Required, MaxLength(100)]
         public string FullName { get; set; } = null!;
 
-        [MaxLength(100)]
-        public string? Department { get; set; }
-
         [MaxLength(20)]
         public string? Phone { get; set; }
 
